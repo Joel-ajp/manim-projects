@@ -3,29 +3,37 @@ from manim_slides import Slide
 
 class Intro(Slide):
     def construct(self):
-        define = Tex(r"$form$")
-        define.to_corner(UP + LEFT)
-        func = MathTex(r"\text{f(x)} = y").scale(2)
-        base1 = Tex(r"With $x$ as the input and $y$ as the output.").scale(1.5)
         self.camera.background_color = "#212121"
-        VGroup(func, base1).arrange(DOWN).space_out_submobjects(1.5)
-
-
-        tx = Text("What is a function?")
-        self.play(Write(tx))
+        title = Text("Free BSD vs. Pop_OS!").scale(2)
+        center = Text("Free BSD vs. Pop_OS!").to_edge(UP)
+        self.play(Write(title, run_time=2))
 
         self.next_slide()
 
+        self.play(Transform(title, center))
 
-        self.play(Transform(tx, define))
-
-
-        self.play(Write(func))
+        self.wait()
 
         self.next_slide()
 
-        self.play(Write(base1))
+        freeBSD = Text("Free BSD").scale(1.5).shift(LEFT*3).to_edge(UP)
+        pop_OS = Text("Pop_OS!").scale(1.5).shift(RIGHT*3).to_edge(UP)
 
-        self.next_slide()
+        # Create a white line
+        line = Line(start=UP, end=DOWN, color=WHITE)
+        
+        # Set the position of the line to be in the middle of the screen
+        line.move_to(ORIGIN)
+        
+        # Change the size of the line
+        line.set_height(0.7 * config["frame_height"])
+        
+        # Add the line to the scene
+        self.add(line)
 
-        self.play(FadeOut(tx), FadeOut(func), FadeOut(base1))
+        # Display the scene
+        self.play(Create(line))
+
+        self.play(FadeOut(center))
+        self.play(Transform(center, freeBSD))
+        self.play(ReplacementTransform(freeBSD, pop_OS))
