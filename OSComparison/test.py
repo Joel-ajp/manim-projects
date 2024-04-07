@@ -37,3 +37,7 @@ class Intro(Slide):
         self.play(FadeOut(center))
         self.play(Transform(center, freeBSD))
         self.play(ReplacementTransform(freeBSD, pop_OS))
+
+# JP, basically, free bsd is the base for different desktop environments, while pop os is a desktop environment itself
+# figure out what pop_os is based on, and which desktop environments are based on free bsd
+# I installed xfce on free bsd and it was 
