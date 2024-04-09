@@ -1,5 +1,6 @@
 from manim import *
 from manim_slides import Slide
+import random
 
 class Intro(Slide):
     def construct(self):
@@ -33,28 +34,76 @@ class Intro(Slide):
         self.play(Transform(title, freeBSD))
         self.play(ReplacementTransform(freeBSD, pop_OS))
 
-        bsdPoints = VGroup(
-            Tex(
-                """{itemize}
-                    \item Free BSD is a free and open-source Unix-like operating system descended from the Berkeley Software Distribution (BSD), which was based on Research Unix.
-                    \item It is used in server environments.
-                    \item It is known for its performance, reliability, and advanced networking and security features.
-                    \item Free BSD is used in desktop environments as well. 
-                """
-            )
-        )
+        bsdScoreTxt = Text("0").scale(3).shift(LEFT*3)
+        popScoreTxt = Text("0").scale(3).shift(RIGHT*3)
 
-        popPoints = VGroup(
-            """{itemize}
-                \item Pop!_OS is a Linux distribution based on Ubuntu, which is based on Debian.
-                \item It is developed by System76, a company that manufactures and sells Linux laptops and desktops.
-                \item Pop!_OS is known for its focus on simplicity and ease of use.
-                \item It is used in desktop environments.
-            """
-        )
+        self.play(GrowFromCenter(bsdScoreTxt), GrowFromCenter(popScoreTxt), run_time=0.2)
 
-        self.play(FadeIn(bsdPoints))
-        self.play(FadeIn(popPoints))
+        self.next_slide()
+
+        bsdVal = 0
+        popVal = 3
+        for i in range(6):
+            # Increment the value
+            bsdVal += 1
+            popVal += 1
+
+            # Update the text to the new value
+            bsdScoreTxt.set_text(str(bsdVal))
+            popScoreTxt.set_text(str(popScoreTxt))
+
+            # Animate the change in the number quickly
+            self.play(Transform(bsdScoreTxt, Text(str(bsdVal)).scale(3).shift(LEFT*3)), Transform(popScoreTxt, Text(str(popVal)).scale(3).shift(RIGHT*3)), run_time=0.05)
+
+
+        self.play(Transform(pop_OS, Text("Pop_OS!").set_color(GREEN).scale(2).shift(RIGHT*3).to_edge(UP)))
+
+        self.next_slide()
+
+        self.play(FadeOut(title), FadeOut(pop_OS), FadeOut(bsdScoreTxt), FadeOut(popScoreTxt), FadeOut(line))
+
+        self.wait(1)
+
+        installation = Text("Installation").scale(2)
+        self.play(Write(installation)) 
+
+        self.next_slide()
+        installPop = Text("Installation | Pop_OS!").to_corner(UP + LEFT)
+        self.play(Transform(installation, installPop))
+        popInstallScreen = ImageMobject("popOs.png").scale(1.5)
+
+        popInstallBullet = BulletedList(
+            "Ease of Use",
+            "Comes with all of the basics",
+            "Quick Install!",
+        ).shift(LEFT + UP * 0.75).scale(1.5)
+
+        self.play(FadeIn(popInstallBullet))
+
+        self.next_slide()
+
+        # This is for the funnies
+        self.play(FadeIn(popInstallScreen), run_time=0.5)
+        self.next_slide()
+
+        straightFace = ImageMobject("straight.png").scale(1.5)
+        self.play(FadeIn(straightFace), run_time=3)
+
+        self.next_slide()
+
+        self.play(FadeOut(straightFace), FadeOut(popInstallScreen))
+
+        self.next_slide()
+
+
+        installBSD = Text("Installation | Free BSD").to_corner(UP + LEFT)
+
+        self.remove(installPop)
+        bsdInstallBullet = BulletedList(
+            "Complete Customization",
+            "You feel like you are doing work",
+        ).shift(LEFT + UP * 0.75).scale(1.5)
+        self.play(Transform(installation, installBSD), Transform(popInstallBullet, bsdInstallBullet))
 
 
 
