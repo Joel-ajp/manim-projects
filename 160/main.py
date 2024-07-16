@@ -19,7 +19,7 @@ class intro(Scene):
 
         node_next = Circle(radius=1, color="#FE5F55", fill_color="#A64942", fill_opacity=1).next_to(node, RIGHT).shift(RIGHT * 1.25)
         next_text = Text("Val", color="#ffffff", font_size=30).move_to(node_next.get_center())
-        node_line = Line(node.get_center(), node_next.get_left(), color="#ffffff").set_z_index(-1)
+        node_line = Line(node.get_right(), node_next.get_left(), color="#ffffff").set_z_index(-1)
 
         node_nil = DashedVMobject(Circle(radius=1, color="#FE5F55").next_to(node, RIGHT).shift(RIGHT * 1.25), dashed_ratio=0.5)
         next_nil = Text("nil", color="#ffffff", font_size=30).move_to(node_nil.get_center())
@@ -35,7 +35,7 @@ class intro(Scene):
 
         list_a = [5, 4, 8, 1, 4]
         list_b = [5, 4, 8, 1, 6, 5]
-        list_c = [5, 4, 8]
+        list_c = [8, 4, 5]
 
         list_a_nodes = []
         list_b_nodes = []
@@ -131,8 +131,40 @@ class intro(Scene):
                 node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
             node.move_to(RIGHT * 2 + RIGHT * (i - (len(list_c) - 1) / 2) * 1.5)
             list_c_nodes.append(node)
+            self.add(node)
 
-        self.play(*[DrawBorderThenFill(node) for node in list_c_nodes])
+        nums = [] 
+
+        for i in range(len(list_c)):
+            number = always_redraw(lambda i=i: Text(str(list_c[i]), color="#ffffff").move_to(list_c_nodes[i].get_center()))
+            nums.append(number)
+            self.add(number)
+        
+        lines = []
+
+        self.play(*[DrawBorderThenFill(node) for node in list_c_nodes], (Write(num) for num in nums),
+                  *[FadeOut(list_a_nodes[i]) for i in range(2, -1, -1)],
+                  *[FadeOut(list_b_nodes[i]) for i in range(2, -1, -1)],
+                  *[FadeOut(numbers[i]) for i in range(2, -1, -1)],
+                  *[FadeOut(numbers[i + 5]) for i in range(2, -1, -1)],
+                #   (FadeOut(line) for line in lines),
+                  )
+                
+        lines = []
+
+        for i in range(2, -1, -1):
+            list_a_nodes.remove(i)
+            list_b_nodes.remove(i)
+        
+        for i in range(len(list_c)):
+
+
+        # add lines from list a to list c
+        for i in range(len(list_a_nodes)):
+            line = always_redraw(lambda i=i: Line(list_a_nodes[i].get_center(), list_c_nodes[0].get_center(), color="#ffffff").set_z_index(-1))
+            lines.append(line)
+            self.add(line)
+        
 
         self.wait(2)
 
