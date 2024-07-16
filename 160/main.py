@@ -39,6 +39,7 @@ class intro(Scene):
 
         list_a_nodes = []
         list_b_nodes = []
+        list_c_nodes = []
 
         for i in range(len(list_a)):
             if i == len(list_a) - 1:
@@ -59,13 +60,12 @@ class intro(Scene):
         label_a = Text("List A", color="#ffffff").move_to(UP * 3)
         label_b = Text("List B", color="#ffffff").move_to(DOWN)
 
-        head_cir = Circle(radius=0.2, color="#04a1cc", fill_color="#017494", fill_opacity=1).to_corner(UP + LEFT)
-        head_label = Text("Head", color="#ffffff", font_size=20).next_to(head_cir, RIGHT)
-        inter_cir = Circle(radius=0.2, color="#729762", fill_color="#597445", fill_opacity=1).move_to(UP + LEFT)
-        intersect = Circle(radius=0.5, color="#729762", fill_color="#597445", fill_opacity=1).center().shift(RIGHT * 2)
-        inter_label = Text("Head", color="#ffffff", font_size=20).next_to(head_cir, RIGHT)
+        head_cir = Circle(radius=0.15, color="#04a1cc", fill_color="#017494", fill_opacity=1).to_corner(UP + LEFT)
+        head_label = Text("Head", color="#ffffff", font_size=17).next_to(head_cir, RIGHT)
+        inter_cir = Circle(radius=0.15, color="#729762", fill_color="#597445", fill_opacity=1).move_to(head_cir, DOWN).shift(DOWN * 0.5)
+        inter_label = Text("Intersect Node", color="#ffffff", font_size=17).next_to(inter_cir, RIGHT)
 
-        self.play(*[DrawBorderThenFill(node) for node in list_a_nodes + list_b_nodes], Write(label_a), Write(label_b), DrawBorderThenFill(head_cir), Write(head_label))
+        self.play(*[DrawBorderThenFill(node) for node in list_a_nodes + list_b_nodes], Write(label_a), Write(label_b), DrawBorderThenFill(head_cir), Write(head_label), DrawBorderThenFill(inter_cir), Write(inter_label))
 
         lines = []
 
@@ -117,22 +117,23 @@ class intro(Scene):
         self.play(*[Create(line) for line in lines], *[Write(num) for num in numbers])
         self.wait()
 
-        lines_intersect = []
-
-        l_a = Text("A: ", color="#ffffff").move_to(list_a_nodes[-1], LEFT * 2).to_edge(LEFT)
-        l_b = Text("B: ", color="#ffffff").move_to(list_b_nodes[-1], LEFT * 2).to_edge(LEFT)
+        l_a = Text("a. ", color="#ffffff").move_to(list_a_nodes[-1], LEFT * 2).to_edge(LEFT)
+        l_b = Text("b. ", color="#ffffff").move_to(list_b_nodes[-1], LEFT * 2).to_edge(LEFT)
 
         self.play(FadeOut(label_a), FadeOut(label_b))
         self.play(Write(l_a), Write(l_b))
 
-        list_a_nodes[2].set_color("#729762").set_fill("#597445")
-        list_b_nodes[2].set_color("#729762").set_fill("#597445")
+        for i in range(len(list_c)):
+            if i == 0:
+                # Green
+                node = Circle(radius=0.5, color="#729762", fill_color="#597445", fill_opacity=1)
+            else:
+                node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+            node.move_to(RIGHT * 2 + RIGHT * (i - (len(list_c) - 1) / 2) * 1.5)
+            list_c_nodes.append(node)
 
+        self.play(*[DrawBorderThenFill(node) for node in list_c_nodes])
 
-        for i in range(2, -1, -1):
-            
-
-        self.play(*[list_b_nodes[i].animate.shift(UP * 2) for i in range(2, -1, -1)], *[list_a_nodes[i].animate.move_to(list_b_nodes[i]) for i in range(2, -1, -1)])
         self.wait(2)
 
         # lines_intersect.append(a)
