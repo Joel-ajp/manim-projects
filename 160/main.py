@@ -71,10 +71,19 @@ class intro(Scene):
             number.move_to(list_b_nodes[i].get_center())
             numbers.append(number)
         
-        self.play((Create(line) for line in lines))
+
+        self.play(*[Create(line) for line in lines], *[Write(num) for num in numbers])
+        self.wait()
 
         intersect = Circle(radius=0.5, color="#729762", fill_color="#597445", fill_opacity=1).center().shift(RIGHT * 2)
         lines_intersect = []
+
+        l_a = Text("A: ", color="#ffffff").move_to(list_a_nodes[-1], LEFT * 2).to_edge(LEFT)
+        l_b = Text("B: ", color="#ffffff").move_to(list_b_nodes[-1], LEFT * 2).to_edge(LEFT)
+
+        self.play(FadeOut(label_a), FadeOut(label_b), Write(l_a), Write(l_b))
+
+        list_a_nodes[0].set_color("#729762")
 
         a = Line(list_a_nodes[0].get_center(), intersect.get_center(), color="#ffffff").set_z_index(-1)
         b = Line(list_b_nodes[0].get_center(), intersect.get_center(), color="#ffffff").set_z_index(-1)
@@ -82,12 +91,10 @@ class intro(Scene):
         lines_intersect.append(a)
         lines_intersect.append(b)
 
-        self.play()
+        self.play(Create(intersect))
 
         # self.play(DrawBorderThenFill(intersect))
         # self.play(Create(line) for line in lines_intersect)
         # self.wait()
 
         # Numbers 
-        self.play(Write(num) for num in numbers)
-        self.wait()
