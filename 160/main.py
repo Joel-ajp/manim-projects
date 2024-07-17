@@ -7,31 +7,12 @@ class intro(Scene):
         self.camera.background_color = "#12152c"
 
     # Intro
-        title = Text("160. Intersection of Two Linked Lists", color="#FFFFFF").scale(1.2)
-        self.play(Write(title))
+        title_number = Text("160.", color="#FFFFFF").scale(1.2).shift(UP)
+        title = Text("Intersection of Two Linked Lists", color="#FFFFFF").scale(1.2).move_to(title_number.get_center() + DOWN)
+        self.play(Write(title), Write(title_number))
         self.wait()
-        self.remove(title)
-
-    # Node def
-        node = Circle(radius=1, color="#FE5F55", fill_color="#A64942", fill_opacity=1).center()
-        node_def = Text("type ListNode struct {\n\n\tVal int\n\n\tNext *ListNode\n\n}", color="#ffffff", font_size=30).next_to(node, LEFT).shift(LEFT * 1.25)
-        node_val = Text("Val", color="#ffffff", font_size=30).move_to(node.get_center())
-
-        node_next = Circle(radius=1, color="#FE5F55", fill_color="#A64942", fill_opacity=1).next_to(node, RIGHT).shift(RIGHT * 1.25)
-        next_text = Text("Val", color="#ffffff", font_size=30).move_to(node_next.get_center())
-        node_line = Line(node.get_right(), node_next.get_left(), color="#ffffff").set_z_index(-1)
-
-        node_nil = DashedVMobject(Circle(radius=1, color="#FE5F55").next_to(node, RIGHT).shift(RIGHT * 1.25), dashed_ratio=0.5)
-        next_nil = Text("nil", color="#ffffff", font_size=30).move_to(node_nil.get_center())
-
-        self.play(DrawBorderThenFill(node), Write(node_def), Write(node_val))
-        self.wait(1)
-        self.play(DrawBorderThenFill(node_next), Create(node_line), Write(next_text))
-        self.wait(1)
-        self.play(Transform(node_next, node_nil), Transform(next_text, next_nil))
-        self.wait(1)
-        self.play(FadeOut(node), FadeOut(node_def), FadeOut(node_val), FadeOut(node_next), FadeOut(next_text), FadeOut(node_line), FadeOut(node_nil), FadeOut(next_nil))
-        self.remove(node, node_def, node_val, node_next, next_text, node_line, node_nil, next_nil)
+        self.play(FadeOut(title), FadeOut(title_number))
+        self.remove(title, title_number)
 
         list_a = [5, 4, 8, 1, 4]
         list_b = [5, 4, 8, 1, 6, 5]
@@ -121,7 +102,6 @@ class intro(Scene):
         l_b = Text("b. ", color="#ffffff").move_to(list_b_nodes[-1], LEFT * 2).to_edge(LEFT)
 
         self.play(FadeOut(label_a), FadeOut(label_b))
-        self.play(Write(l_a), Write(l_b))
 
         for i in range(len(list_c)):
             if i == 0:
@@ -140,39 +120,92 @@ class intro(Scene):
             nums.append(number)
             self.add(number)
         
-        lines = []
-
         self.play(*[DrawBorderThenFill(node) for node in list_c_nodes], (Write(num) for num in nums),
                   *[FadeOut(list_a_nodes[i]) for i in range(2, -1, -1)],
                   *[FadeOut(list_b_nodes[i]) for i in range(2, -1, -1)],
                   *[FadeOut(numbers[i]) for i in range(2, -1, -1)],
                   *[FadeOut(numbers[i + 5]) for i in range(2, -1, -1)],
-                #   (FadeOut(line) for line in lines),
+                  *[FadeOut(line) for line in lines],
+                  *[list_b_nodes[i].animate.shift(LEFT * 0.705) for i in range(len(list_b_nodes) - 3, len(list_b_nodes))], Write(l_a), Write(l_b)
                   )
                 
         lines = []
 
-        for i in range(2, -1, -1):
-            list_a_nodes.remove(i)
-            list_b_nodes.remove(i)
-        
-        for i in range(len(list_c)):
+        _lines = []
+
+        a_line_0 = Line(list_a_nodes[4].get_right(), list_a_nodes[3].get_left(), color="#ffffff")
 
 
-        # add lines from list a to list c
-        for i in range(len(list_a_nodes)):
-            line = always_redraw(lambda i=i: Line(list_a_nodes[i].get_center(), list_c_nodes[0].get_center(), color="#ffffff").set_z_index(-1))
-            lines.append(line)
-            self.add(line)
-        
 
+        a_start_point = list_a_nodes[3].get_right()
+        a_end_point = list_c_nodes[0].get_left()
+        a_control_point1 = list_a_nodes[3].get_right() + RIGHT 
+        a_control_point2 = list_c_nodes[0].get_left() + LEFT 
+
+        # Create the backwards "S" shape using CubicBezier
+        a_backwards_s = CubicBezier(a_start_point, a_control_point1, a_control_point2, a_end_point, color=WHITE)
+
+        b_start_point = list_b_nodes[3].get_right()
+        b_end_point = list_c_nodes[0].get_left()
+        b_control_point1 = list_b_nodes[3].get_right() + RIGHT
+        b_control_point2 = list_c_nodes[0].get_left() + LEFT
+
+        b_backwards_s = CubicBezier(b_start_point, b_control_point1, b_control_point2, b_end_point, color=WHITE)
+
+        # Add the shape to the scene
+
+        b_line_0 = Line(list_b_nodes[5].get_right(), list_b_nodes[4].get_left(), color="#ffffff")
+        b_line_1 = Line(list_b_nodes[4].get_right(), list_b_nodes[3].get_left(), color="#ffffff")
+
+        c_line_0 = Line(list_c_nodes[0].get_right(), list_c_nodes[1].get_left(), color="#ffffff")
+        c_line_1 = Line(list_c_nodes[1].get_right(), list_c_nodes[2].get_left(), color="#ffffff")
+
+        _lines.append(a_line_0)
+        _lines.append(b_line_0)
+        _lines.append(b_line_1)
+        _lines.append(c_line_0)
+        _lines.append(c_line_1)
+
+        self.play((Create(line) for line in _lines), Create(a_backwards_s), Create(b_backwards_s))
         self.wait(2)
 
-        # lines_intersect.append(a)
-        # lines_intersect.append(b)
+        _main = self.mobjects
+        self.play(FadeOut(mobject) for mobject in self.mobjects)
+        self.wait()
+        
+    # Node def
+        node = Circle(radius=1, color="#FE5F55", fill_color="#A64942", fill_opacity=1).center()
+        node_def = Text("type ListNode struct {\n\n\tVal int\n\n\tNext *ListNode\n\n}", color="#ffffff", font_size=30).next_to(node, LEFT).shift(LEFT * 1.25)
+        node_val = Text("Val", color="#ffffff", font_size=30).move_to(node.get_center())
 
-        # self.play(DrawBorderThenFill(intersect))
-        # self.play(Create(line) for line in lines_intersect)
-        # self.wait()
+        node_next = Circle(radius=1, color="#FE5F55", fill_color="#A64942", fill_opacity=1).next_to(node, RIGHT).shift(RIGHT * 1.25)
+        next_text = Text("Val", color="#ffffff", font_size=30).move_to(node_next.get_center())
+        node_line = Line(node.get_right(), node_next.get_left(), color="#ffffff").set_z_index(-1)
 
-        # Numbers 
+        node_nil = DashedVMobject(Circle(radius=1, color="#FE5F55").next_to(node, RIGHT).shift(RIGHT * 1.25), dashed_ratio=0.55)
+        next_nil = Text("nil", color="#ffffff", font_size=30).move_to(node_nil.get_center())
+
+        self.play(DrawBorderThenFill(node), Write(node_def), Write(node_val))
+        self.wait(1)
+        self.play(DrawBorderThenFill(node_next), Create(node_line), Write(next_text))
+        self.wait(1)
+        self.play(Transform(node_next, node_nil), Transform(next_text, next_nil))
+        self.wait(1)
+        self.play(FadeOut(node), FadeOut(node_def), FadeOut(node_val), FadeOut(node_next), FadeOut(next_text), FadeOut(node_line), FadeOut(node_nil), FadeOut(next_nil))
+        self.remove(node, node_def, node_val, node_next, next_text, node_line, node_nil, next_nil)
+
+        self.play(FadeIn(mobject) for mobject in _main)
+        self.wait(1)
+
+        dot_a = Dot(color=WHITE).move_to(a_start_point)
+        self.add(dot_a)
+        dot_b = Dot(color=WHITE).move_to(b_start_point)
+        self.add(dot_b)
+        self.play(MoveAlongPath(dot_a, a_backwards_s), MoveAlongPath(dot_b, b_backwards_s), run_time=2)
+        self.remove(dot_b)
+        self.add(nums[0])
+        self.play(Transform(dot_a, list_c_nodes[0].copy()), run_time=1)
+        self.wait()
+        self.wait(2)
+
+
