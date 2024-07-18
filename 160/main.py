@@ -227,7 +227,7 @@ class intro(Scene):
 
         # Add a nil node to the end of the list_c_nodes
         c_nil = DashedVMobject(Circle(radius=0.5, color="#FE5F55").move_to(list_c_nodes[-1].get_center() + RIGHT * 1.5), dashed_ratio=0.45)
-        c_nil_text = Text("nil", color="#ffffff", font_size=30).move_to(c_nil.get_center())
+        c_nil_text = Text("nil", color="#ffffff", font_size=25).move_to(c_nil.get_center())
         c_nil_line = Line(list_c_nodes[-1].get_right(), c_nil.get_left(), color="#ffffff").set_z_index(-1)
 
         self.play(DrawBorderThenFill(c_nil), Create(c_nil_line), Write(c_nil_text))
@@ -266,32 +266,20 @@ class intro(Scene):
         self.play(b_arrow.animate.next_to(list_b_nodes[-3], DOWN), run_time=0.5)
         self.wait(0.5)
         self.play(b_arrow.animate.next_to(list_c_nodes[0], DOWN), run_time=0.5)
-
         # intu_code = Code("brute.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4)
         # intu_code.line_numbers.set_color(WHITE)
         # self.play(Write(intu_code))
         self.wait(3)
 
-                # Create rectangles
-        rect1 = Rectangle(width=14, height=8, fill_color=BLUE, fill_opacity=1).move_to(LEFT * 14)
-        rect2 = Rectangle(width=14, height=8, fill_color=GREEN, fill_opacity=1).move_to(LEFT * 14)
-        rect3 = Rectangle(width=14, height=8, fill_color=RED, fill_opacity=1).move_to(LEFT * 14)
-
-        # Animate the rectangles moving across the screen
-        self.play(rect1.animate.shift(RIGHT * 28), run_time=2)
-        self.play(rect2.animate.shift(RIGHT * 28), run_time=2)
-        self.play(rect3.animate.shift(RIGHT * 28), run_time=2)
-
-        # Wait for a moment to showcase the final background color
-        self.wait(1)
-
-        # Change background color to the final rectangle color
-        self.camera.background_color = RED
-
-        # Remove the final rectangle to show the background color
-        self.remove(rect3)
-
-        # Wait to display the final background color
-        self.wait(2)
+        # Create a circle
+        cir_trans = Circle(radius=1, color="#9297b7", fill_color="#9297b7", fill_opacity=1).center().scale(0)
+        
+        self.add(cir_trans)
+        
+        # Animate the circle to grow and cover the screen
+        self.play(cir_trans.animate.scale(20), run_time=3)
+        
+        # Keep the scene for a while
+        self.wait(5)
 
 
