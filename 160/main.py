@@ -11,11 +11,13 @@ class intro(Scene):
 
     # # Intro
     #     title_number = Text("160.", color="#FFFFFF").scale(1.2).shift(UP)
+    #     title_number_drop_shadow = title_number.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
     #     title = Text("Intersection of Two Linked Lists", color="#FFFFFF").scale(1.2).move_to(title_number.get_center() + DOWN)
-    #     self.play(Write(title), Write(title_number))
+    #     title_drop_shadow = title.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+    #     self.play(Write(title), Write(title_number), Write(title_drop_shadow), Write(title_number_drop_shadow))
     #     self.wait()
-    #     self.play(FadeOut(title), FadeOut(title_number))
-    #     self.remove(title, title_number)
+    #     self.play(FadeOut(title), FadeOut(title_number), FadeOut(title_drop_shadow), FadeOut(title_number_drop_shadow))
+    #     self.remove(title, title_number, title_drop_shadow, title_number_drop_shadow)
 
     #     list_a = [5, 4, 8, 1, 4]
     #     list_b = [5, 4, 8, 1, 6, 5]
@@ -204,10 +206,10 @@ class intro(Scene):
 
     # # Brute Force
     #     intu = Text("Brute Force", color="#ffffff").scale(1.2)
-    #     self.play(Write(intu))
+    #     intu_drop_shadow = intu.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+    #     self.play(Write(intu), Write(intu_drop_shadow))
     #     self.wait(1)        
-    #     self.play(FadeOut(intu))
-
+    #     self.play(FadeOut(intu), FadeOut(intu_drop_shadow))
 
     #     a_arrow = Arrow(start=UP * 0.7, end=DOWN * 0.7, color=WHITE, ).next_to(list_a_nodes[-1], UP)
     #     b_arrow = Arrow(start=DOWN * 0.7, end=UP * 0.7, color=WHITE, ).next_to(list_b_nodes[-1], DOWN)
@@ -260,7 +262,7 @@ class intro(Scene):
     #     self.wait(1)
 
     #     # circle transition
-    #     cir_trans = Circle(radius=1, color="#ffffff", fill_color="#31355a", fill_opacity=1).scale(0.1)
+        cir_trans = Circle(radius=1, color="#ffffff", fill_color="#31355a", fill_opacity=1).scale(0.1)
     #     self.add(cir_trans)
     #     self.play(GrowFromCenter(cir_trans), cir_trans.animate.scale(100), run_time=3)
 
@@ -318,168 +320,244 @@ class intro(Scene):
     #     self.wait(2)
     #     self.play(*[FadeOut(mobject) for mobject in self.mobjects], run_time=1)
 
-        self.camera.background_color = "#12152c"
+        # self.camera.background_color = "#12152c"
 
-        a_list = [1, 9, 1,] 
-        b_list = [3,] 
-        c_list = [2, 4]
+        # a_list = [1, 9, 1,] 
+        # b_list = [3,] 
+        # c_list = [2, 4]
 
-        _a_list = []
-        _b_list = []
-        _c_list = []
-        num_a_list = []
-        num_b_list = []
-        num_c_list = []
+        # _a_list = []
+        # _b_list = []
+        # _c_list = []
+        # num_a_list = []
+        # num_b_list = []
+        # num_c_list = []
 
-        for i in range(len(a_list)):
-            if i == 0:
-                node = Circle(radius=0.5, color="#04a1cc", fill_color="#017494", fill_opacity=1)
-            else:
-                node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
-            node.move_to(UP * 2 + RIGHT * (i - (len(a_list) - 1) / 2) * 1.5)
-            node.shift(LEFT * 1.5)
-            _a_list.append(node)
-            self.add(node)
+        # for i in range(len(a_list)):
+        #     if i == 0:
+        #         node = Circle(radius=0.5, color="#04a1cc", fill_color="#017494", fill_opacity=1)
+        #     else:
+        #         node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+        #     node.move_to(UP * 2 + RIGHT * (i - (len(a_list) - 1) / 2) * 1.5)
+        #     node.shift(LEFT * 1.5)
+        #     _a_list.append(node)
+        #     self.add(node)
 
-        for i in range(len(b_list)):
-            if i == 0:
-                node = Circle(radius=0.5, color="#04a1cc", fill_color="#017494", fill_opacity=1)
-            else:
-                node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
-            node.move_to(DOWN * 2 + RIGHT * (i - (len(b_list) - 1) / 2) * 1.5)
-            _b_list.append(node)
-            self.add(node)
+        # for i in range(len(b_list)):
+        #     if i == 0:
+        #         node = Circle(radius=0.5, color="#04a1cc", fill_color="#017494", fill_opacity=1)
+        #     else:
+        #         node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+        #     node.move_to(DOWN * 2 + RIGHT * (i - (len(b_list) - 1) / 2) * 1.5)
+        #     _b_list.append(node)
+        #     self.add(node)
 
-        for i in range(len(c_list)):
-            if i == 0:
-                node = Circle(radius=0.5, color="#729762", fill_color="#597445", fill_opacity=1)
-            else:
-                node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
-            node.move_to(ORIGIN + RIGHT * (i - (len(c_list) - 1) / 2) * 1.5)
-            node.shift(RIGHT*3.5)
-            _c_list.append(node)
-            self.add(node)
+        # for i in range(len(c_list)):
+        #     if i == 0:
+        #         node = Circle(radius=0.5, color="#729762", fill_color="#597445", fill_opacity=1)
+        #     else:
+        #         node = Circle(radius=0.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+        #     node.move_to(ORIGIN + RIGHT * (i - (len(c_list) - 1) / 2) * 1.5)
+        #     node.shift(RIGHT*3.5)
+        #     _c_list.append(node)
+        #     self.add(node)
         
-        # Add numbers to the nodes
-        for i in range(len(a_list)):
-            number = Text(str(a_list[i]), color="#ffffff")
-            number.move_to(_a_list[i].get_center())
-            num_a_list.append(number)
-            self.add(number)
+        # # Add numbers to the nodes
+        # for i in range(len(a_list)):
+        #     number = Text(str(a_list[i]), color="#ffffff")
+        #     number.move_to(_a_list[i].get_center())
+        #     num_a_list.append(number)
+        #     self.add(number)
 
-        for i in range(len(b_list)):
-            number = Text(str(b_list[i]), color="#ffffff")
-            number.move_to(_b_list[i].get_center())
-            num_b_list.append(number)
-            self.add(number)
+        # for i in range(len(b_list)):
+        #     number = Text(str(b_list[i]), color="#ffffff")
+        #     number.move_to(_b_list[i].get_center())
+        #     num_b_list.append(number)
+        #     self.add(number)
 
-        for i in range(len(c_list)):
-            number = Text(str(c_list[i]), color="#ffffff")
-            number.move_to(_c_list[i].get_center())
-            num_b_list.append(number)
-            self.add(number)
+        # for i in range(len(c_list)):
+        #     number = Text(str(c_list[i]), color="#ffffff")
+        #     number.move_to(_c_list[i].get_center())
+        #     num_b_list.append(number)
+        #     self.add(number)
 
-        # Add lines to the nodes
-        _a_lines = []
-        _b_lines = []
-        _c_lines = []
+        # # Add lines to the nodes
+        # _a_lines = []
+        # _b_lines = []
+        # _c_lines = []
 
-        for i in range(len(a_list) - 1):
-            line = always_redraw(lambda i=i: Line(_a_list[i].get_right(), _a_list[i + 1].get_left(), color="#ffffff").set_z_index(-1))
-            _a_lines.append(line)
+        # for i in range(len(a_list) - 1):
+        #     line = always_redraw(lambda i=i: Line(_a_list[i].get_right(), _a_list[i + 1].get_left(), color="#ffffff").set_z_index(-1))
+        #     _a_lines.append(line)
         
-        for i in range(len(b_list) - 1):
-            line = always_redraw(lambda i=i: Line(_b_list[i].get_right(), _b_list[i + 1].get_left(), color="#ffffff").set_z_index(-1))
-            _b_lines.append(line)
+        # for i in range(len(b_list) - 1):
+        #     line = always_redraw(lambda i=i: Line(_b_list[i].get_right(), _b_list[i + 1].get_left(), color="#ffffff").set_z_index(-1))
+        #     _b_lines.append(line)
 
-        for i in range(len(c_list) - 1):
-            line = always_redraw(lambda i=i: Line(_c_list[i].get_right(), _c_list[i + 1].get_left(), color="#ffffff").set_z_index(-1))
-            _c_lines.append(line)
+        # for i in range(len(c_list) - 1):
+        #     line = always_redraw(lambda i=i: Line(_c_list[i].get_right(), _c_list[i + 1].get_left(), color="#ffffff").set_z_index(-1))
+        #     _c_lines.append(line)
 
-        _a_start_point = _a_list[-1].get_right()
-        _a_end_point = _c_list[0].get_left()
-        _a_control_point1 = _a_list[-1].get_right() + RIGHT
-        _a_control_point2 = _c_list[0].get_left() + LEFT
+        # _a_start_point = _a_list[-1].get_right()
+        # _a_end_point = _c_list[0].get_left()
+        # _a_control_point1 = _a_list[-1].get_right() + RIGHT
+        # _a_control_point2 = _c_list[0].get_left() + LEFT
 
-        _a_backwards_s = CubicBezier(_a_start_point, _a_control_point1, _a_control_point2, _a_end_point, color=WHITE)
+        # _a_backwards_s = CubicBezier(_a_start_point, _a_control_point1, _a_control_point2, _a_end_point, color=WHITE)
 
-        _b_start_point = _b_list[-1].get_right()
-        _b_end_point = _c_list[0].get_left()
-        _b_control_point1 = _b_list[-1].get_right() + RIGHT
-        _b_control_point2 = _c_list[0].get_left() + LEFT
+        # _b_start_point = _b_list[-1].get_right()
+        # _b_end_point = _c_list[0].get_left()
+        # _b_control_point1 = _b_list[-1].get_right() + RIGHT
+        # _b_control_point2 = _c_list[0].get_left() + LEFT
 
-        _b_backwards_s = CubicBezier(_b_start_point, _b_control_point1, _b_control_point2, _b_end_point, color=WHITE)
+        # _b_backwards_s = CubicBezier(_b_start_point, _b_control_point1, _b_control_point2, _b_end_point, color=WHITE)
+
+        # _c_nil = DashedVMobject(Circle(radius=0.5, color="#FE5F55").move_to(_c_list[-1].get_center() + RIGHT * 1.5), dashed_ratio=0.45)
+        # _c_nil_text = Text("nil", color="#ffffff", font_size=25).move_to(_c_nil.get_center())
+        # _c_nil_line = Line(_c_list[-1].get_right(), _c_nil.get_left(), color="#ffffff").set_z_index(-1)
+
+        # lab_a = Text("a. ", color="#ffffff").move_to(_a_list[-1], LEFT * 2).to_edge(LEFT)
+        # lab_b = Text("b. ", color="#ffffff").move_to(_b_list[-1], LEFT * 2).to_edge(LEFT)
+        # self.add(head_cir, head_label, inter_cir, inter_label, lab_a, lab_b)
+
+        # sol = Text("Final Solution", color="#000000").scale(1.2).shift(DOWN * 0.025, LEFT * 0.025)
+        # sol_drop_shadow = sol.copy().set_color(WHITE).shift(UP * 0.025 + RIGHT * 0.025)
+        # trans_cir = Circle(radius=1, color="#12152c", fill_color="#31355a", fill_opacity=1).scale(15)
+        # self.add(trans_cir)
+        # self.play(Write(sol), Write(sol_drop_shadow))
+        # self.wait(2)
+        # self.play(ShrinkToCenter(trans_cir), FadeOut(sol), FadeOut(sol_drop_shadow), run_time=1.5)
+        # self.play(*[Create(line) for line in _a_lines], *[Create(line) for line in _b_lines], *[Create(line) for line in _c_lines], Create(_a_backwards_s), Create(_b_backwards_s), Write(_c_nil_text), Create(_c_nil_line), DrawBorderThenFill(_c_nil), run_time=1)
+        # self.wait(2)
+
+        # rec_flash = Rectangle(color="#ffffff", width=4.5, height=1.5).move_to(_c_list[-1])
+
+        # self.play(ShowPassingFlash(rec_flash), run_time=2)
+        # self.wait(2)
 
 
-        _c_nil = DashedVMobject(Circle(radius=0.5, color="#FE5F55").move_to(_c_list[-1].get_center() + RIGHT * 1.5), dashed_ratio=0.45)
-        _c_nil_text = Text("nil", color="#ffffff", font_size=25).move_to(_c_nil.get_center())
-        _c_nil_line = Line(_c_list[-1].get_right(), _c_nil.get_left(), color="#ffffff").set_z_index(-1)
+        # len_a = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_a, RIGHT * 1.5).scale(1.75)
+        # len_b = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_b, RIGHT * 1.5).scale(1.75)
 
-        lab_a = Text("a. ", color="#ffffff").move_to(_a_list[-1], LEFT * 2).to_edge(LEFT)
-        lab_b = Text("b. ", color="#ffffff").move_to(_b_list[-1], LEFT * 2).to_edge(LEFT)
-        self.add(head_cir, head_label, inter_cir, inter_label, lab_a, lab_b)
-
-        sol = Text("Final Solution", color="#ffffff").scale(1.2)
-        trans_cir = Circle(radius=1, color="#12152c", fill_color="#31355a", fill_opacity=1).scale(15)
-        self.add(trans_cir)
-        self.play(Write(sol))
-        self.wait(2)
-        self.play(ShrinkToCenter(trans_cir), FadeOut(sol), run_time=1.5)
-        self.play(*[Create(line) for line in _a_lines], *[Create(line) for line in _b_lines], *[Create(line) for line in _c_lines], Create(_a_backwards_s), Create(_b_backwards_s), Write(_c_nil_text), Create(_c_nil_line), DrawBorderThenFill(_c_nil), run_time=1)
-        self.wait(2)
-
-        rec_flash = Rectangle(color="#ffffff", width=4.5, height=1.5).move_to(_c_list[-1])
-
-        self.play(ShowPassingFlash(rec_flash), run_time=2)
-        self.wait(2)
-
-
-        len_a = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_a, RIGHT * 1.5).scale(1.75)
-        len_b = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_b, RIGHT * 1.5).scale(1.75)
-
-        # Create a dot that travels along the path of each line in the list
-        dot_a = Dot(color=WHITE).move_to(_a_list[0].get_right())
-        dot_b = Dot(color=WHITE).move_to(_b_list[0].get_right())
-        _a = _a_list[0].copy().set_opacity(0)
-        _b = _b_list[0].copy().set_opacity(0)
-        len_a.increment_value(1)
-        len_b.increment_value(1)
-        self.play(Transform(_a, dot_a), Transform(_b, dot_b), FadeIn(len_a), FadeIn(len_b), run_time=1)
-        self.wait(0.5)
-        self.play(MoveAlongPath(_b, _b_backwards_s), MoveAlongPath(_a, _a_lines[0]),  run_time=1)
-        dot_b = _c_list[0].copy().set_opacity(0)
-        dot_a = _a_list[1].copy().set_opacity(0)
-        len_a.increment_value(1)
-        len_b.increment_value(1)
-        self.play(Transform(_b, dot_b), Transform(_a, dot_a), run_time=1)
-        _a = Dot(color=WHITE).move_to(_a_list[1].get_right())
-        _b = Dot(color=WHITE).move_to(_c_list[0].get_right())
-        self.play(Transform(dot_a, _a), Transform(dot_b, _b), run_time=1)
-        self.wait(0.5)
-        self.play(MoveAlongPath(dot_b, _c_lines[0]), MoveAlongPath(dot_a, _a_lines[1]),  run_time=1)
-        len_a.increment_value(1)
-        len_b.increment_value(1)
-        _a = _a_list[2].copy().set_opacity(0)
-        _b = _c_list[1].copy().set_opacity(0)
-        self.play(Transform(dot_a, _a), Transform(dot_b, _b), run_time=1)
-        _a = Dot(color=WHITE).move_to(_a_list[2].get_right())
-        self.play(Transform(dot_a, _a), run_time=1)
-        self.wait(0.5)
-        self.play(MoveAlongPath(dot_a, _a_backwards_s),  run_time=1)
-        len_a.increment_value(1)
-        _a = _c_list[0].copy().set_opacity(0)
-        self.play(Transform(dot_a, _a), run_time=0.5)
-        dot_a = Dot(color=WHITE).move_to(_c_list[0].get_right())
-        self.play(Transform(_a, dot_a), run_time=0.5)
-        self.wait(0.5)
-        self.play(MoveAlongPath(_a, _c_lines[0]), run_time=0.5)
-        len_a.increment_value(1)
-        dot_a = _c_list[1].copy().set_opacity(0)
-        self.play(Transform(_a, dot_a), run_time=0.5)
+        # dot_a = Dot(color=WHITE).move_to(_a_list[0].get_right())
+        # dot_b = Dot(color=WHITE).move_to(_b_list[0].get_right())
+        # _a = _a_list[0].copy().set_opacity(0)
+        # _b = _b_list[0].copy().set_opacity(0)
+        # len_a.increment_value(1)
+        # len_b.increment_value(1)
+        # self.play(Transform(_a, dot_a), Transform(_b, dot_b), FadeIn(len_a), FadeIn(len_b), run_time=1)
+        # self.wait(0.5)
+        # self.play(MoveAlongPath(_b, _b_backwards_s), MoveAlongPath(_a, _a_lines[0]),  run_time=1)
+        # dot_b = _c_list[0].copy().set_opacity(0)
+        # dot_a = _a_list[1].copy().set_opacity(0)
+        # len_a.increment_value(1)
+        # len_b.increment_value(1)
+        # self.play(Transform(_b, dot_b), Transform(_a, dot_a), run_time=1)
+        # _a = Dot(color=WHITE).move_to(_a_list[1].get_right())
+        # _b = Dot(color=WHITE).move_to(_c_list[0].get_right())
+        # self.play(Transform(dot_a, _a), Transform(dot_b, _b), run_time=1)
+        # self.wait(0.5)
+        # self.play(MoveAlongPath(dot_b, _c_lines[0]), MoveAlongPath(dot_a, _a_lines[1]),  run_time=1)
+        # len_a.increment_value(1)
+        # len_b.increment_value(1)
+        # _a = _a_list[2].copy().set_opacity(0)
+        # _b = _c_list[1].copy().set_opacity(0)
+        # self.play(Transform(dot_a, _a), Transform(dot_b, _b), run_time=1)
+        # _a = Dot(color=WHITE).move_to(_a_list[2].get_right())
+        # self.play(Transform(dot_a, _a), run_time=1)
+        # self.wait(0.5)
+        # self.play(MoveAlongPath(dot_a, _a_backwards_s),  run_time=1)
+        # len_a.increment_value(1)
+        # _a = _c_list[0].copy().set_opacity(0)
+        # self.play(Transform(dot_a, _a), run_time=0.5)
+        # dot_a = Dot(color=WHITE).move_to(_c_list[0].get_right())
+        # self.play(Transform(_a, dot_a), run_time=0.5)
+        # self.wait(0.5)
+        # self.play(MoveAlongPath(_a, _c_lines[0]), run_time=0.5)
+        # len_a.increment_value(1)
+        # dot_a = _c_list[1].copy().set_opacity(0)
+        # self.play(Transform(_a, dot_a), run_time=0.5)
 
                   
-        self.wait(2)
+        # self.wait(2)
 
+        # _a_arrow = Arrow(start=UP * 0.7, end=DOWN * 0.7, color=WHITE, ).next_to(_a_list[0], UP)
+        # _b_arrow = Arrow(start=DOWN * 0.7, end=UP * 0.7, color=WHITE, ).next_to(_b_list[0], DOWN)
 
+        # self.play(Create(_a_arrow), Create(_b_arrow))
+        # self.play(_a_arrow.animate.next_to(_a_list[1], UP), run_time=1)
+        # len_a.increment_value(-1)
+        # self.play(_a_arrow.animate.next_to(_a_list[2], UP), run_time=1)
+        # len_a.increment_value(-1)
+        # self.wait(2)
+
+        # self.play(
+        #     FadeOut(_a_list[0]),
+        #     FadeOut(_a_list[1]),
+        #     FadeOut(_a_lines[0]),
+        #     FadeOut(_a_lines[1]),
+        #     FadeOut(num_a_list[0]),
+        #     FadeOut(num_a_list[1]),)
+
+        # self.wait(2)
+        # self.play(_a_list[2].animate.set_color("#04a1cc").set_fill("#017494"), run_time=1)
+        # self.wait(2)
+
+        # self.play(
+        #     _a_arrow.animate.next_to(_c_list[0], UP),
+        #     _b_arrow.animate.next_to(_c_list[0], DOWN),
+        # )
+
+        # self.wait(2)
+
+        # self.add(cir_trans)
+        # self.play(GrowFromCenter(cir_trans), cir_trans.animate.scale(100), run_time=3)
+
+        # for mob in self.mobjects:
+        #     self.remove(mob)
+
+        self.camera.background_color = "#31355a"
+
+        self.wait(1)
+
+        solution = Text("Final Solution", color="#ffffff", font_size=30).scale(1.2)
+        solution.to_corner(UP + RIGHT)
+        solution_ds = solution.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025)
+        solution_ds.set_z_index(-1)
+        solution_ds.set_opacity(0.5)
+
+        len_code = Code("len.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4)
+        len_code.line_numbers.set_color(WHITE)
+        len_code_copy = len_code.copy()
+        len_code_copy.set_color(BLACK)
+        len_code_copy.set_opacity(0.5)
+        len_code_copy.shift(DOWN * 0.1 + LEFT * 0.1)
+        len_code_copy.set_z_index(-1)
+        cursor = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).next_to(len_code.code[-1], RIGHT * 0.5)
+        turn_animation_into_updater(FadeIn(cursor), FadeOut(cursor), run_time=1)
+
+        self.play(Write(len_code), Write(len_code_copy), Write(solution), Write(solution_ds), run_time=2)
+        self.add(cursor)
+        self.wait(5)
+
+        self.remove(cursor)
+
+        self.play(len_code.animate.scale(0.35), len_code_copy.animate.scale(0.35), run_time=1)
+        self.play(len_code.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), len_code_copy.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), run_time=1)
+        self.wait(3)
+
+        sol_code = Code("sol.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4).scale(0.8)
+        sol_code.line_numbers.set_color(WHITE)
+        sol_code_copy = sol_code.copy()
+        sol_code_copy.set_color(BLACK)
+        sol_code_copy.set_opacity(0.5)
+        sol_code_copy.shift(DOWN * 0.1 + LEFT * 0.1)
+        sol_code_copy.set_z_index(-1)
+        cursor = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).next_to(sol_code.code[-1], RIGHT * 0.5)
+        turn_animation_into_updater(FadeIn(cursor), FadeOut(cursor), run_time=1)
+
+        self.play(Write(sol_code), Write(sol_code_copy), run_time=2)
+        self.add(cursor)
+        self.wait(5)
 
 
