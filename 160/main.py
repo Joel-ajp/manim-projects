@@ -428,12 +428,58 @@ class intro(Scene):
         self.play(*[Create(line) for line in _a_lines], *[Create(line) for line in _b_lines], *[Create(line) for line in _c_lines], Create(_a_backwards_s), Create(_b_backwards_s), Write(_c_nil_text), Create(_c_nil_line), DrawBorderThenFill(_c_nil), run_time=1)
         self.wait(2)
 
-        len_a = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_a, RIGHT).scale(1.5)
-        len_b = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_b, RIGHT).scale(1.5)
+        rec_flash = Rectangle(color="#ffffff", width=4.5, height=1.5).move_to(_c_list[-1])
 
-        self.add(len_a, len_b)
+        self.play(ShowPassingFlash(rec_flash), run_time=2)
         self.wait(2)
 
-        
+
+        len_a = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_a, RIGHT * 1.5).scale(1.75)
+        len_b = DecimalNumber(0, color="#ffffff", num_decimal_places=0).next_to(lab_b, RIGHT * 1.5).scale(1.75)
+
+        # Create a dot that travels along the path of each line in the list
+        dot_a = Dot(color=WHITE).move_to(_a_list[0].get_right())
+        dot_b = Dot(color=WHITE).move_to(_b_list[0].get_right())
+        _a = _a_list[0].copy().set_opacity(0)
+        _b = _b_list[0].copy().set_opacity(0)
+        len_a.increment_value(1)
+        len_b.increment_value(1)
+        self.play(Transform(_a, dot_a), Transform(_b, dot_b), FadeIn(len_a), FadeIn(len_b), run_time=1)
+        self.wait(0.5)
+        self.play(MoveAlongPath(_b, _b_backwards_s), MoveAlongPath(_a, _a_lines[0]),  run_time=1)
+        dot_b = _c_list[0].copy().set_opacity(0)
+        dot_a = _a_list[1].copy().set_opacity(0)
+        len_a.increment_value(1)
+        len_b.increment_value(1)
+        self.play(Transform(_b, dot_b), Transform(_a, dot_a), run_time=1)
+        _a = Dot(color=WHITE).move_to(_a_list[1].get_right())
+        _b = Dot(color=WHITE).move_to(_c_list[0].get_right())
+        self.play(Transform(dot_a, _a), Transform(dot_b, _b), run_time=1)
+        self.wait(0.5)
+        self.play(MoveAlongPath(dot_b, _c_lines[0]), MoveAlongPath(dot_a, _a_lines[1]),  run_time=1)
+        len_a.increment_value(1)
+        len_b.increment_value(1)
+        _a = _a_list[2].copy().set_opacity(0)
+        _b = _c_list[1].copy().set_opacity(0)
+        self.play(Transform(dot_a, _a), Transform(dot_b, _b), run_time=1)
+        _a = Dot(color=WHITE).move_to(_a_list[2].get_right())
+        self.play(Transform(dot_a, _a), run_time=1)
+        self.wait(0.5)
+        self.play(MoveAlongPath(dot_a, _a_backwards_s),  run_time=1)
+        len_a.increment_value(1)
+        _a = _c_list[0].copy().set_opacity(0)
+        self.play(Transform(dot_a, _a), run_time=0.5)
+        dot_a = Dot(color=WHITE).move_to(_c_list[0].get_right())
+        self.play(Transform(_a, dot_a), run_time=0.5)
+        self.wait(0.5)
+        self.play(MoveAlongPath(_a, _c_lines[0]), run_time=0.5)
+        len_a.increment_value(1)
+        dot_a = _c_list[1].copy().set_opacity(0)
+        self.play(Transform(_a, dot_a), run_time=0.5)
+
+                  
+        self.wait(2)
+
+
 
 
