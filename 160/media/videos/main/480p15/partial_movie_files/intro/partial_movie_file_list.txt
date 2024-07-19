@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/1359803623_2268332985_631829896.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/1359803623_1233399622_4131132508.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/4267772628_3402914649_1201175014.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/4267772628_2790066074_2904485144.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/4267772628_3782689393_2904485144.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/4267772628_2475379470_4199875930.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/4267772628_2449614436_721172429.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/160/media/videos/main/480p15/partial_movie_files/intro/4267772628_3402914649_3384706334.mp4'

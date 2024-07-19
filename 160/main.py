@@ -546,7 +546,7 @@ class intro(Scene):
         self.play(len_code.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), len_code_copy.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), run_time=1)
         self.wait(3)
 
-        sol_code = Code("sol.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4).scale(0.8)
+        sol_code = Code("sol.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4).scale(0.825)
         sol_code.line_numbers.set_color(WHITE)
         sol_code_copy = sol_code.copy()
         sol_code_copy.set_color(BLACK)
@@ -560,4 +560,65 @@ class intro(Scene):
         self.add(cursor)
         self.wait(5)
 
+        self.remove(cursor)
 
+        cursor_0 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(sol_code.code[1].get_center()).shift(DOWN * 0.1 + RIGHT * 0.4)
+        turn_animation_into_updater(FadeIn(cursor_0), FadeOut(cursor_0), run_time=1)
+        self.add(cursor_0)
+        self.wait(5)
+
+        cursor_1 = cursor_0.copy()
+        self.remove(cursor_0)
+        self.add(cursor_1)
+        _rec_highlight = Rectangle(color="#04a1cc", fill_color="#017494", height=1.45, width=6, fill_opacity=0.1).move_to(sol_code.code[1].get_left()).shift(DOWN * 0.665 + RIGHT * 2)
+
+        self.play(Transform(cursor_1, _rec_highlight), run_time=1)
+        self.wait(3)
+
+        _rec_highlight0 = Rectangle(color="#04a1cc", fill_color="#017494", height=1.25, width=5, fill_opacity=0.1).move_to(sol_code.code[6].get_left()).shift(DOWN * 0.5 + RIGHT * 1.25)
+
+        self.play(Transform(cursor_1, _rec_highlight0), run_time=1)
+        self.wait(3)
+
+        _rec_highlight1 = Rectangle(color="#ffffff", fill_color="#ffffff", height=0.35, width=4.5, fill_opacity=0.1).move_to(sol_code.code[10].get_left()).shift(DOWN * 0.1 + RIGHT * 1.05)
+        self.play(Transform(cursor_1, _rec_highlight1), run_time=1)
+        self.wait(3)
+
+        _rec_highlight2 = Rectangle(color="#729762", fill_color="#597445", height=0.35, width=2.25, fill_opacity=0.1).move_to(sol_code.code[14].get_left()).shift(DOWN * 0.1 + RIGHT * 1)
+        self.play(Transform(cursor_1, _rec_highlight2), run_time=1)
+        self.wait(3)
+
+        self.play(FadeOut(cursor_1))
+        self.wait(1)
+
+        self.play(sol_code.animate.scale(0.2875), sol_code_copy.animate.scale(0.2875), run_time=1)
+        big_o_expression = Tex("$O( ? )$", color="#ffffff").scale(2.5).shift(LEFT)
+        big_o_expression_ds = big_o_expression.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+
+        self.play(sol_code.animate.move_to(len_code.get_top()).shift(UP), sol_code_copy.animate.move_to(len_code.get_top()).shift(UP), Write(big_o_expression), Write(big_o_expression_ds), run_time=1)
+
+        self.wait(2)
+
+        self.play(FadeOut(big_o_expression), FadeOut(big_o_expression_ds), run_time=1)
+        self.play(len_code.animate.center(), len_code_copy.animate.center().shift(DOWN * 0.1 + LEFT * 0.1), sol_code.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), sol_code_copy.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), run_time=2)
+        self.play(len_code.animate.scale(3), len_code_copy.animate.scale(3), run_time=1)
+
+        self.wait(2)
+
+        _rec_highlight3 = Rectangle(color="#04a1cc", fill_color="#017494", height=0.45, width=8, fill_opacity=0.1).move_to(len_code.code[2].get_left()).shift(DOWN * 0.15 + RIGHT * 3.5)
+
+        self.play(Create(_rec_highlight3))
+        self.wait(2)
+        self.play(FadeOut(_rec_highlight3),
+        len_code.animate.scale(0.335), len_code_copy.animate.scale(0.335), run_time=1)
+        big_o_expression = Tex("$O(m + n)$", color="#ffffff").scale(2.5).shift(LEFT)
+        big_o_expression_ds = big_o_expression.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+        self.play(len_code.animate.move_to(sol_code.get_top()).shift(UP * 0.65), len_code_copy.animate.move_to(sol_code.get_top()).shift(UP * 0.65), Write(big_o_expression), Write(big_o_expression_ds), run_time=1)
+        self.wait(2)
+
+        self.play(FadeOut(big_o_expression), FadeOut(big_o_expression_ds), run_time=1)
+
+        self.play(sol_code.animate.center(), sol_code_copy.animate.center().shift(DOWN * 0.1 , LEFT * 0.1), len_code.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), len_code_copy.animate.to_corner(DOWN + RIGHT).shift(DOWN * 0.25), run_time=2)
+        self.play(sol_code.animate.scale(3.5), sol_code_copy.animate.scale(3.5), run_time=1)
+
+        self.wait(2)
