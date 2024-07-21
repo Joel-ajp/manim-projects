@@ -32,6 +32,11 @@ class TwoSum(ThreeDScene):
         target = 9
         nodes = VGroup()
 
-        
+        for i in range(len(nums)):
+            n = Square(side_length=1, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+            n.move_to(RIGHT * (i - (len(nums) - 1) / 2) * 1.5)
+            nodes.add(n)
+
+        self.play(Create(nodes))
         
         self.wait(2)
