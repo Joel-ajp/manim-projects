@@ -30,5 +30,5 @@ file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial
 file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_1076105901_2583893097.mp4'
 file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_54910104_176656551.mp4'
 file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_3438219438_1806495200.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_162805804_252343102.mp4'
-file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_3438219438_1482648486.mp4'
+file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_1302400594_252343102.mp4'
+file 'file:C:/Users/jp/Desktop/manim-projects/1/media/videos/main/480p15/partial_movie_files/TwoSum/2609417428_3438219438_3182300654.mp4'

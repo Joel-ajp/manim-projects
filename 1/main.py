@@ -151,6 +151,11 @@ class TwoSum(ThreeDScene):
         sum_text = Text("9", color="#ffffff").move_to(sum.get_center())
         self.play(Create(line_1), Create(line_0), Write(sum_text), run_time=0.5)
         self.wait(1)
-        self.play(sum.animate.set_color("#729762"), sum.animate.set_fill("#597445"), run_time=0.5)
-        self.wait(1)
+        sum.set_color("#729762")
+        self.play(sum.animate.set_fill("#597445"), run_time=0.5)
+        self.wait(2)
+
+                
+
+
 
