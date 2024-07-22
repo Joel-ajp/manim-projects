@@ -28,7 +28,7 @@ class TwoSum(ThreeDScene):
         self.remove(title, title_number, title_drop_shadow, title_number_drop_shadow)
  
     # Problem
-        nums = [2, 7, 11, 15]
+        nums = [3, 2, 7, 11, 15]
         nums_mobs = []
         nums_index_mobs = []
         target = 9
@@ -39,7 +39,7 @@ class TwoSum(ThreeDScene):
         index_label_ds = index_label.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
         # target square
         target_sq = Square(side_length=0.5, color="#729762", fill_color="#597445", fill_opacity=1).to_corner(UL).shift(DOWN * 0.75)
-        target_label = Text("Target", color="#ffffff", font_size=20).move_to(target_sq.get_right()).shift(RIGHT * 0.5)
+        target_label = Text("Target", color="#ffffff", font_size=20).move_to(target_sq.get_right()).shift(RIGHT * 0.55)
         target_label_ds = target_label.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
 
         for i in range(len(nums)):
@@ -77,7 +77,53 @@ class TwoSum(ThreeDScene):
         *[n.animate.shift(UP * 1) for n in nums_mobs],
         *[n.animate.shift(UP * 1) for n in nums_index_mobs],
         )
-
-
         
         self.wait(2)
+
+        sum_tag = Square(side_length=0.5, color="#04a1cc", fill_color="#017494", fill_opacity=1).to_corner(UL).shift(RIGHT * 1.75)
+        sum_label = Text("Sum", color="#ffffff", font_size=20).move_to(sum_tag.get_right()).shift(RIGHT * 0.45)
+        sum_label_ds = sum_label.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+        sum = Square(side_length=1.5, color="#04a1cc", fill_color="#017494", fill_opacity=1).move_to(DOWN * 2 + LEFT * 2)
+        sum_equal = Text("==", color="#ffffff").move_to(DOWN * 2)
+        sum_equal_ds = sum_equal.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+        sum_text = Text(f"nums[i]\n     +\nnums[j]", color="#ffffff", font_size=25).move_to(sum.get_center())
+
+        self.play(
+        DrawBorderThenFill(sum_tag),
+        Write(sum_label),
+        Write(sum_label_ds),
+        DrawBorderThenFill(sum),
+        Write(sum_text),
+        Write(sum_equal),
+        Write(sum_equal_ds),
+        target_main.animate.shift(RIGHT * 2),
+        target_main_label.animate.shift(RIGHT * 2),
+        )
+
+        self.wait(2)
+
+        _main = []
+
+        for mob in self.mobjects:
+            _main.append(mob)
+        
+        self.play(*[FadeOut(mob) for mob in self.mobjects])
+            
+        self.wait(2)
+
+        brute_force = Text("Brute Force", color="#ffffff").scale(1.2)
+
+        self.play(Write(brute_force))
+        self.wait(2)
+        self.play(FadeOut(brute_force))
+        _main.remove(sum_text)
+        self.play(*[FadeIn(mob) for mob in _main])
+        self.wait(2)
+
+        line_0 = CubicBezier(nodes[0].get_bottom(), (nodes[0].get_right() + DOWN * 2),end_handle=(sum.get_left() + UP * 2), end_anchor=sum.get_top(), color="#ffffff")
+        line_1 = Line(nodes[1].get_bottom(), sum.get_top(), color="#ffffff")
+        self.play(Create(line_0), Create(line_1))
+
+        self.wait(2)
+
+
