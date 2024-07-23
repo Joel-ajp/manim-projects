@@ -250,11 +250,10 @@ class TwoSum(ThreeDScene):
     #     self.wait(1)
         self.camera.background_color = "#12152c"
 
-        # add stuff here
-        _nums = [3, 2, 7, 11, 15]
+        _nums = [8,11,3,2,4]
         _nums_mobs = []
         _nums_index_mobs = []
-        _target = 9
+        _target = 6
         _nodes = []
 
         for i in range(len(_nums)):
@@ -298,4 +297,46 @@ class TwoSum(ThreeDScene):
         self.wait(2)
         self.play(Indicate(_target_main_label), run_time=1)
         self.wait(2)
+
+        __main = []
+        main_group = Group()
+
+        for mob in self.mobjects:
+            __main.append(mob)
+            main_group.add(mob)
+
+
+        self.play(main_group.animate.scale(0.75))
+        self.play(main_group.animate.shift(RIGHT * 2))
+
+        seen_map_0 = Text("seen := map[int]int\n{", color="#ffffff").scale(0.75).to_corner(UL)
+        seen_map_1 = Text("}", color="#ffffff").to_corner(DL).scale(0.75)
+
+        self.play(Write(seen_map_0))
+        self.play(Write(seen_map_1))
+        self.wait(2)
+
+        self.play(*[FadeOut(mob) for mob in __main], FadeOut(seen_map_0), FadeOut(seen_map_1))
+        self.wait(2)
+
+        # addition = MathTex("nums[i]", " + ", "nums[j]", " = ", "target", color="#ffffff").scale(1.5)
+        # addition_ds = addition.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+
+        # self.play(Write(addition), Write(addition_ds))
+        # self.wait(2)
+        
+        # _addition = MathTex("nums[j]", " = ", "target", "-", "nums[i]", color="#ffffff").scale(1.5)
+        # _addition_ds = _addition.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+
+        # self.play(TransformMatchingTex(addition, _addition), TransformMatchingTex(addition_ds, _addition_ds))
+        # self.wait(2)
+
+        # comp_rec = SurroundingRectangle(_addition[0], color="#ffffff", fill_color="#ffffff", fill_opacity=0.1)
+
+        # self.play(ShowPassingFlash(comp_rec), run_time=1)
+        # self.wait(2)
+        # final_addition = MathTex("comp.", " = ", "target", "-", "nums[i]", color="#ffffff").scale(1.5)
+        # final_addition_ds = final_addition.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025).set_z_index(-1)
+        # self.play(Transform(_addition, final_addition), Transform(_addition_ds, final_addition_ds))
+        # self.wait(2)
 
