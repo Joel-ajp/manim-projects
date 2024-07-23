@@ -35,8 +35,8 @@ class TwoSum(ThreeDScene):
                 return code
             return mobject_without_dots
 
-    def highlight(self, code_mob, line):
-        surr_rectangle = SurroundingRectangle(code_mob.code[line], color="#04a1cc", fill_color="#017494", fill_opacity=0.5)
+    def highlight(self, code_mob, line, c_hex, f_hex):
+        surr_rectangle = SurroundingRectangle(code_mob.code[line], color=c_hex, fill_color=f_hex, fill_opacity=0.1)
         self.play(Create(surr_rectangle), run_time=1)
         self.wait(2)
 
@@ -211,4 +211,25 @@ class TwoSum(ThreeDScene):
         self.play(Write(brute_code), Write(brute_code_copy), Write(brute_code_label), Write(brute_code_label_ds), run_time=2)
         self.add(cursor)
         self.wait(5)
+        cursor_0 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(brute_code.code[1], RIGHT * 1).shift(RIGHT * 0.25)
+        turn_animation_into_updater(FadeIn(cursor_0), FadeOut(cursor_0), run_time=1)
+
+        self.remove(cursor)
+        self.add(cursor_0)
+        self.wait(5)
+
+        rec_0 = SurroundingRectangle(brute_code.code[1], color="#04a1cc", fill_color="#017494", fill_opacity=0.1)
+        rec_1 = Rectangle(width=0.25, height=0.4, color="#04a1cc", fill_color="#017494", fill_opacity=0.1).move_to(brute_code.code[1].get_right())
+        cursor_1 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(brute_code.code[1], RIGHT * 1).shift(RIGHT * 0.25)
+        self.remove(cursor_0)
+        self.add(cursor_1)
+        self.play(Transform(cursor_1, rec_0), run_time=1)
+        self.wait(2)
+        self.highlight(brute_code, 7, "#04a1cc", "#017494")
+        self.play(Transform(cursor_1, rec_1), run_time=1)
+        self.wait(2)
+        self.highlight(brute_code, 2, "#729762", "#597445")
+        self.wait(2)
+
+
 
