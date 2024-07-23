@@ -185,51 +185,117 @@ class TwoSum(ThreeDScene):
     #     self.add(cir_trans)
     #     self.play(GrowFromCenter(cir_trans), cir_trans.animate.scale(100), run_time=3)
 
-        self.camera.background_color = "#31355a"
+    #     self.camera.background_color = "#31355a"
 
-        for mob in self.mobjects:
-            self.remove(mob)
+    #     for mob in self.mobjects:
+    #         self.remove(mob)
         
+    #     self.wait(2)
+
+    #     brute_code_label = Text("Brute Force", color="#ffffff", font_size=30).scale(1.2)
+    #     brute_code_label.to_corner(UP + RIGHT)
+    #     brute_code_label_ds = brute_code_label.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025)
+    #     brute_code_label_ds.set_z_index(-1)
+    #     brute_code_label_ds.set_opacity(0.5)
+
+    #     brute_code = Code("brute.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4)
+    #     brute_code.line_numbers.set_color(WHITE)
+    #     brute_code_copy = brute_code.copy()
+    #     brute_code_copy.set_color(BLACK)
+    #     brute_code_copy.set_opacity(0.5)
+    #     brute_code_copy.shift(DOWN * 0.1 + LEFT * 0.1)
+    #     brute_code_copy.set_z_index(-1)
+    #     cursor = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).next_to(brute_code.code[-1], RIGHT * 0.5)
+    #     turn_animation_into_updater(FadeIn(cursor), FadeOut(cursor), run_time=1)
+    #     brute_code.code = self.remove_invisible_chars(brute_code.code)
+    #     self.play(Write(brute_code), Write(brute_code_copy), Write(brute_code_label), Write(brute_code_label_ds), run_time=2)
+    #     self.add(cursor)
+    #     self.wait(5)
+    #     cursor_0 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(brute_code.code[1], RIGHT * 1).shift(RIGHT * 0.25)
+    #     turn_animation_into_updater(FadeIn(cursor_0), FadeOut(cursor_0), run_time=1)
+
+    #     self.remove(cursor)
+    #     self.add(cursor_0)
+    #     self.wait(5)
+
+    #     rec_0 = SurroundingRectangle(brute_code.code[1], color="#04a1cc", fill_color="#017494", fill_opacity=0.1)
+    #     rec_1 = Rectangle(width=0.25, height=0.4, color="#04a1cc", fill_color="#017494", fill_opacity=0.1).move_to(brute_code.code[1].get_right())
+    #     cursor_1 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(brute_code.code[1], RIGHT * 1).shift(RIGHT * 0.25)
+    #     self.remove(cursor_0)
+    #     self.add(cursor_1)
+    #     self.play(Transform(cursor_1, rec_0), run_time=1)
+    #     self.wait(2)
+    #     self.highlight(brute_code, 7, "#04a1cc", "#017494")
+    #     self.play(Transform(cursor_1, rec_1), run_time=1)
+    #     self.wait(2)
+    #     # self.highlight(brute_code, 2, "#729762", "#597445")
+    #     rec_2 = SurroundingRectangle(brute_code.code[2], color="#729762", fill_color="#597445", fill_opacity=0.1)
+    #     self.play(Create(rec_2))
+    #     self.wait(2)
+    #     rec_3 = Rectangle(width=0.25, height=0.4, color="#729762", fill_color="#597445", fill_opacity=0.1).move_to(brute_code.code[2].get_right())
+    #     self.highlight(brute_code, 6, "#729762", "#597445")
+    #     self.play(Transform(rec_2, rec_3), run_time=1)
+    #     self.wait(2)
+    #     rec_4 = SurroundingRectangle(brute_code.code[3:5], color="#ffffff", fill_color="#ffffff", fill_opacity=0.1)
+    #     self.play(Create(rec_4))
+    #     self.wait(2)
+    #     # main highlight
+    #     self.highlight(brute_code, 8, "#FE5F55", "#A64942")
+    #     self.wait(2)
+    #     brute_time = Tex("$O(n^2)$", color="#ffffff").scale(1.75).move_to(brute_code.get_center() + DOWN + RIGHT * 2)
+    #     self.play(Write(brute_time))
+    #     self.wait(2)
+
+    #     self.play(*[FadeOut(mob) for mob in self.mobjects])
+    #     self.wait(1)
+        self.camera.background_color = "#12152c"
+
+        # add stuff here
+        _nums = [3, 2, 7, 11, 15]
+        _nums_mobs = []
+        _nums_index_mobs = []
+        _target = 9
+        _nodes = []
+
+        for i in range(len(_nums)):
+            n = Square(side_length=1.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+            n.move_to(RIGHT * (i - (len(_nums) - 1) / 2) * 2)
+            _nodes.append(n)
+        
+        for i in range(len(_nums)):
+            text = Text(str(_nums[i]), color="#FFFFFF").move_to(_nodes[i].get_center())
+            _nums_mobs.append(text)
+        
+        for i in range(len(_nums)):
+            text = Text(str(i), color="#FE5F55", font_size=20).move_to(_nodes[i].get_center() + DOWN * 0.5 + LEFT * 0.5)
+            _nums_index_mobs.append(text)
+
+        self.add(*[n for n in _nodes],
+                  *[num for num in _nums_mobs],
+                  *[num for num in _nums_index_mobs])
+                
+        
+
+        final_solution = Text("Final Solution", color="#0000000").scale(1.2).shift(DOWN * 0.025 + LEFT * 0.025)
+        final_solution_ds = final_solution.copy().set_color(WHITE).shift(UP * 0.025 + RIGHT * 0.025)
+
+        trans_cir = Circle(radius=1, color="#ffffff", fill_color="#31355a", fill_opacity=1).scale(15)
+        self.add(trans_cir)
+        self.play(Write(final_solution), Write(final_solution_ds))
+        self.wait(1)
+        self.play(ShrinkToCenter(trans_cir), FadeOut(final_solution), FadeOut(final_solution_ds), run_time = 1.5)
+        self.wait(1)
+
+        _target_main = Square(side_length=1.5, color="#729762", fill_color="#597445", fill_opacity=1).move_to(DOWN * 2)
+        _target_main_label = Text(str(_target), color="#ffffff").move_to(_target_main.get_center())
+
+        self.play(*[n.animate.shift(UP * 1) for n in _nodes],
+        *[n.animate.shift(UP * 1) for n in _nums_mobs],
+        *[n.animate.shift(UP * 1) for n in _nums_index_mobs],
+        DrawBorderThenFill(_target_main),
+        Write(_target_main_label),
+        run_time=1)
         self.wait(2)
-
-        brute_code_label = Text("Brute Force", color="#ffffff", font_size=30).scale(1.2)
-        brute_code_label.to_corner(UP + RIGHT)
-        brute_code_label_ds = brute_code_label.copy().set_color(BLACK).shift(DOWN * 0.025 + LEFT * 0.025)
-        brute_code_label_ds.set_z_index(-1)
-        brute_code_label_ds.set_opacity(0.5)
-
-        brute_code = Code("brute.go", style="github-dark", language="Go", font="Monospace", tab_width=3, line_spacing=0.4)
-        brute_code.line_numbers.set_color(WHITE)
-        brute_code_copy = brute_code.copy()
-        brute_code_copy.set_color(BLACK)
-        brute_code_copy.set_opacity(0.5)
-        brute_code_copy.shift(DOWN * 0.1 + LEFT * 0.1)
-        brute_code_copy.set_z_index(-1)
-        cursor = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).next_to(brute_code.code[-1], RIGHT * 0.5)
-        turn_animation_into_updater(FadeIn(cursor), FadeOut(cursor), run_time=1)
-        brute_code.code = self.remove_invisible_chars(brute_code.code)
-        self.play(Write(brute_code), Write(brute_code_copy), Write(brute_code_label), Write(brute_code_label_ds), run_time=2)
-        self.add(cursor)
-        self.wait(5)
-        cursor_0 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(brute_code.code[1], RIGHT * 1).shift(RIGHT * 0.25)
-        turn_animation_into_updater(FadeIn(cursor_0), FadeOut(cursor_0), run_time=1)
-
-        self.remove(cursor)
-        self.add(cursor_0)
-        self.wait(5)
-
-        rec_0 = SurroundingRectangle(brute_code.code[1], color="#04a1cc", fill_color="#017494", fill_opacity=0.1)
-        rec_1 = Rectangle(width=0.25, height=0.4, color="#04a1cc", fill_color="#017494", fill_opacity=0.1).move_to(brute_code.code[1].get_right())
-        cursor_1 = Rectangle(width=0.125, height=0.25, color=WHITE).set_fill(WHITE).set_opacity(1).move_to(brute_code.code[1], RIGHT * 1).shift(RIGHT * 0.25)
-        self.remove(cursor_0)
-        self.add(cursor_1)
-        self.play(Transform(cursor_1, rec_0), run_time=1)
+        self.play(Indicate(_target_main_label), run_time=1)
         self.wait(2)
-        self.highlight(brute_code, 7, "#04a1cc", "#017494")
-        self.play(Transform(cursor_1, rec_1), run_time=1)
-        self.wait(2)
-        self.highlight(brute_code, 2, "#729762", "#597445")
-        self.wait(2)
-
-
 
