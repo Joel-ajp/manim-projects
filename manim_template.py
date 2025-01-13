@@ -1,11 +1,8 @@
 from manim import *
 
-class intro(Scene):
+class Main(Scene):
     def construct(self):
         theme = set_theme(self)
-
-
-
 
 # Utility to set color theme and background
 def set_theme(scene, background_color="#12152c", primary_color="#FE5F55", secondary_color="#04a1cc", fill_primary="#A64942", fill_secondary="#017494", text_color="#ffffff"):
@@ -20,12 +17,23 @@ def set_theme(scene, background_color="#12152c", primary_color="#FE5F55", second
     return theme
 
 # Utility to create a circle transition effect
-def circle_transition(scene, color="#ffffff", fill_color="#31355a", run_time=3, scale_factor=100):
+def circle_transition_in(scene, color="#ffffff", fill_color="#31355a", run_time=3, scale_factor=100):
     cir_trans = Circle(radius=1, color=color, fill_color=fill_color, fill_opacity=1).scale(0.1)
     scene.add(cir_trans)
     scene.play(GrowFromCenter(cir_trans), cir_trans.animate.scale(scale_factor), run_time=run_time)
+    scene.camera.background_color = fill_color
     scene.remove(cir_trans)
 
+def circle_transition_out(scene, color="#ffffff", fill_color="#31355a", background_color="#12152c", run_time=3, scale_factor=100):
+    """
+    You have to add mobjects before using this function and make sure to send them to back of the frame. This way when the circle shrinks, it will reveal the mobjects. 
+    """
+    cir_trans = Circle(radius=scale_factor, color=color, fill_color=fill_color, fill_opacity=1)
+    cir_trans.move_to(scene.camera.frame_center)
+    scene.add(cir_trans)
+    scene.camera.background_color = background_color
+    scene.play(ShrinkToCenter(cir_trans), run_time=run_time)
+    scene.remove(cir_trans)
 
 def add_text_drop_shadow(text_obj, shadow_color=BLACK, offset=DOWN * 0.025 + LEFT * 0.025, opacity=1, z_index=-1):
     """
@@ -39,27 +47,6 @@ def add_text_drop_shadow(text_obj, shadow_color=BLACK, offset=DOWN * 0.025 + LEF
     """
     shadow = text_obj.copy().set_color(shadow_color).shift(offset).set_opacity(opacity).set_z_index(z_index)
     return VGroup(shadow, text_obj)
-
-from manim import *
-
-# Utility to set color theme and background
-def set_theme(scene, background_color="#12152c", primary_color="#FE5F55", secondary_color="#04a1cc", fill_primary="#A64942", fill_secondary="#017494", text_color="#ffffff"):
-    scene.camera.background_color = background_color
-    theme = {
-        "primary_color": primary_color,
-        "secondary_color": secondary_color,
-        "fill_primary": fill_primary,
-        "fill_secondary": fill_secondary,
-        "text_color": text_color
-    }
-    return theme
-
-# Utility to create a circle transition effect
-def circle_transition(scene, color="#ffffff", fill_color="#31355a", run_time=3, scale_factor=100):
-    cir_trans = Circle(radius=1, color=color, fill_color=fill_color, fill_opacity=1).scale(0.1)
-    scene.add(cir_trans)
-    scene.play(GrowFromCenter(cir_trans), cir_trans.animate.scale(scale_factor), run_time=run_time)
-    scene.remove(cir_trans)
 
 # Utility to add a drop shadow to text
 def add_text_drop_shadow(text_obj, shadow_color=BLACK, offset=DOWN * 0.025 + LEFT * 0.025, opacity=1, z_index=-1):
@@ -91,3 +78,29 @@ def create_code_block(file_name, language="Go", style="github-dark", font="Monos
     shadow.set_z_index(-1)
 
     return VGroup(shadow, code)
+
+def create_indexed_squares_vgroup(_nums):
+    """Creates a VGroup of squares with indices at the bottom right."""
+    _nodes = []
+    _nums_mobs = []
+    _nums_index_mobs = []
+
+    for i in range(len(_nums)):
+        # Create a square and position it
+        n = Square(side_length=1.5, color="#FE5F55", fill_color="#A64942", fill_opacity=1)
+        n.move_to(RIGHT * (i - (len(_nums) - 1) / 2) * 2)
+        _nodes.append(n)
+    
+    for i in range(len(_nums)):
+        # Create the number text in the center of the square
+        text = Text(str(_nums[i]), color="#FFFFFF").move_to(_nodes[i].get_center())
+        _nums_mobs.append(text)
+    
+    for i in range(len(_nums)):
+        # Create the index text at the bottom right of the square
+        index_text = Text(str(i), color="#FE5F55", font_size=20)
+        index_text.move_to(_nodes[i].get_center() + DOWN * 0.5 + RIGHT * 0.5)
+        _nums_index_mobs.append(index_text)
+
+    # Create a VGroup containing all squares, numbers, and indices
+    return VGroup(*_nodes, *_nums_mobs, *_nums_index_mobs)
